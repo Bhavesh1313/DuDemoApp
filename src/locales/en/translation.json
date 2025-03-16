@@ -1,0 +1,22 @@
+{
+    "login": {
+        "email": "Enter Email",
+        "password": "Enter Password",
+        "login": "Login",
+        "language": "Select Language",
+        "emailInvalid": "Please enter a valid email address.",
+        "passwordInvalid": "Password must be 8+ characters, with at least one lowercase, one uppercase, and one digit.",
+        "english": "ENG",
+        "arabic": "عربي"
+    },
+    "home": {
+        "title": "Popular Movies List",
+        "noRecordFound": "No Record Found",
+        "logout": "Logout",
+        "logout_msg": "Are you sure you want to logout?",
+        "yes": "Yes",
+        "cancel": "Cancel",
+        "networkTitle": "Network Error",
+        "networkErrorMsg": "Network error. Please check your internet connection and try again."
+    }
+}
