@@ -95,7 +95,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        
         fetchMovies();
     }, [fetchMovies]);
 

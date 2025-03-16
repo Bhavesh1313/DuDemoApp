@@ -15,7 +15,7 @@
 First, take a clone of the project using command 
 
 ```bash
-git clone 'https://github.com/bhaveshshadija-nagarro/DuDemoApp.git'
+git clone 'https://github.com/Bhavesh1313/DuDemoApp.git'
 ```
 ## Step 2: Install the packages
 Now install the packages added in package.json file
