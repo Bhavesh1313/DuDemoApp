@@ -5,6 +5,8 @@
 
 ### English Language
 
+![alt text](En-1.png)
+![alt text](En-2.png)
 
 
 ### Arabic Language
