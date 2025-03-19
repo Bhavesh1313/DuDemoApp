@@ -3,15 +3,6 @@
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 ## Screenshots:
 
-### English Language
-
-![alt text](En-1.png)
-![alt text](En-2.png)
-
-
-### Arabic Language
-
-
 ## Step 1: Start the Metro Server
 
 First, take a clone of the project using command 

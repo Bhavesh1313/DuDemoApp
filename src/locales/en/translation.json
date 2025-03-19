@@ -7,16 +7,18 @@
         "emailInvalid": "Please enter a valid email address.",
         "passwordInvalid": "Password must be 8+ characters, with at least one lowercase, one uppercase, and one digit.",
         "english": "ENG",
-        "arabic": "عربي"
+        "arabic": "عربي",
+        "forgotPassword": "Forgot Password?",
+        "noAccount": "Create an Account"
     },
     "home": {
-        "title": "Popular Movies List",
-        "noRecordFound": "No Record Found",
+        "title": "Treanding Movies",
+        "noRecordFound": "No Movies Found",
         "logout": "Logout",
-        "logout_msg": "Are you sure you want to logout?",
+        "logout_msg": "Are you sure you want to log out?",
         "yes": "Yes",
         "cancel": "Cancel",
         "networkTitle": "Network Error",
-        "networkErrorMsg": "Network error. Please check your internet connection and try again."
+        "networkErrorMsg": "Network error! Please check your connection and try again."
     }
 }

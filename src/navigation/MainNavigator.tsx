@@ -4,6 +4,7 @@ import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import i18n from '../i18n';
+import { RootState } from '../redux/store';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import { HOME, LOGIN } from './routes';
@@ -23,7 +24,6 @@ const AuthStackNavigator = () => {
 const MainNavigator = () => {
 
     const { email, password } = useSelector((state: RootState) => state.login);
-
 
     return (
         <I18nextProvider i18n={i18n}>

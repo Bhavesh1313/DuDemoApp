@@ -23,7 +23,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ item }) => {
                 style={styles.poster}
                 resizeMode={FastImage.resizeMode.stretch}
             />
-            <Text numberOfLines={2} style={styles.title}>{title}</Text>
+            <Text numberOfLines={1} style={styles.title} ellipsizeMode="tail" >{title}</Text>
         </View>
     );
 };

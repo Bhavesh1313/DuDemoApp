@@ -13,11 +13,10 @@ import {
 import { Dropdown } from 'react-native-element-dropdown';
 import FastImage from 'react-native-fast-image';
 import Restart from 'react-native-restart';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { images } from '../../assets/images';
 import { setLanguage } from '../../redux/reducers/languageSlice';
 import { setAuthCredentials } from '../../redux/reducers/loginSlice';
-import { RootState } from '../../redux/store';
 import { Colors } from '../../utils/colors';
 import { LANGUAGE_CODES, LANGUAGE_STORAGE_KEY, LANGUAGES } from '../../utils/constants';
 import SecureStorage from '../../utils/SensitiveStorage';
@@ -36,9 +35,22 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginBtnDisabled, setLoginBtnDisabled] = useState(true);
-    const { selectedLanguage } = useSelector((state: RootState) => state.language);
-    const [selectedValue, setSelectedValue] = useState<string>(selectedLanguage);
+    //const { selectedLanguage } = useSelector((state: RootState) => state.language);
+    const [selectedLanguage,setSelectedLanguage] =useState<string>('');
+    const [selectedValue, setSelectedValue] = useState<string>('');
     const dispatch = useDispatch();
+
+
+    useEffect(() => {
+        const fetchLanguage = async () => {
+            let language: string | null = await SecureStorage.getItem(LANGUAGE_STORAGE_KEY);
+            setSelectedValue(language ?? 'en'); // Default to 'en' if null
+            setSelectedLanguage(language ?? 'en'); // Default to 'en' if null
+        };
+    
+        fetchLanguage();
+    }, []);
+    
 
     useEffect(() => {
         setLoginBtnDisabled(!validateEmail(email) || !validatePassword(password) || !email || !password);
@@ -116,12 +128,20 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                 />
                 {!validatePassword(password) ? <Text style={styles.errorText}>{t('login.passwordInvalid')}</Text> : null}
 
+                <TouchableOpacity>
+                    <Text style={styles.forgotPassword}>{t('login.forgotPassword')}</Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity
                     disabled={loginBtnDisabled}
                     style={loginBtnDisabled ? styles.submitBtnDisabled : styles.submitBtn}
                     onPress={onLoginBtnClick}
                 >
                     <Text style={styles.submitText}>{t('login.login').toUpperCase()}</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity>
+                    <Text style={styles.createAccount}>{t('login.noAccount')}</Text>
                 </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>

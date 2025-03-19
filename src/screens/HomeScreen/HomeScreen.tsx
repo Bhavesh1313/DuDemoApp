@@ -11,55 +11,68 @@ import {
     Text,
     View,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { LOGIN } from '../../navigation/routes';
 import { getPopularMovies } from '../../network/fetchHelper';
 import { clearAuthCredentials } from '../../redux/reducers/loginSlice';
-import { persistor, RootState } from '../../redux/store';
+import { persistor } from '../../redux/store';
 import { Colors } from '../../utils/colors';
+import { LANGUAGE_STORAGE_KEY } from '../../utils/constants';
+import SecureStorage from '../../utils/SensitiveStorage';
 import CustomToolbar from './components/CustomToolbar';
 import MovieItem from './components/MovieItem';
-import Pagination from './components/Pagination';
 import styles from './style';
 
 type MovieDetails = {
     id: number;
     title: string;
     poster_path: string;
-}
+};
 
 type HomeScreenProps = {
     navigation: {
         [x: string]: any;
         replace: (screen: string) => void;
     };
-}
+};
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     const [movies, setMovies] = useState<MovieDetails[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [refreshing, setRefreshing] = useState(false);
     const [page, setPage] = useState<number>(1);
+    const [loadingMore, setLoadingMore] = useState(false);
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const { selectedLanguage } = useSelector((state: RootState) => state.language);
+    //const { selectedLanguage } = useSelector((state: RootState) => state.language);
+    const [selectedLanguage,setSelectedLanguage] =useState<string>('');
 
-    const fetchMovies = useCallback(async () => {
-        setLoading(true);
-        try {
-            const movieData = await getPopularMovies(selectedLanguage, page);
-            setMovies(movieData);
-        } catch (error) {
-            setMovies([]);
-        } finally {
-            setLoading(false);
-            setRefreshing(false);
-        }
-    }, [page, selectedLanguage]);
 
     useEffect(() => {
-        fetchMovies();
-    }, [fetchMovies]);
+        const fetchLanguageAndMovies = async () => {
+            let language: string | null = await SecureStorage.getItem(LANGUAGE_STORAGE_KEY);
+            const selectedLang = language ?? 'en';
+            setSelectedLanguage(selectedLang);
+            fetchMovies(1, false);
+        };
+    
+        fetchLanguageAndMovies();
+    }, []);
+
+    const fetchMovies = useCallback(async (currentPage: number, isLoadMore = false) => {
+        if (isLoadMore) setLoadingMore(true);
+        else setLoading(true);
+        try {
+            const movieData = await getPopularMovies(selectedLanguage, currentPage);
+            setMovies((prevMovies) => (isLoadMore ? [...prevMovies, ...movieData] : movieData));
+        } catch (error) {
+            if (!isLoadMore) setMovies([]);
+        } finally {
+            setLoading(false);
+            setLoadingMore(false);
+            setRefreshing(false);
+        }
+    }, [selectedLanguage]);
 
     const renderEmptyComponent = () => (
         <View style={styles.emptyContainer}>
@@ -95,8 +108,20 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
-        fetchMovies();
+        setPage(1);
+        fetchMovies(1);
     }, [fetchMovies]);
+
+    const loadMoreMovies = useCallback(() => {
+        if (!loadingMore) {
+            setPage((prevPage) => {
+                const nextPage = prevPage + 1;
+                fetchMovies(nextPage, true);
+                return nextPage;
+            });
+        }
+    }, [loadingMore, fetchMovies]);
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -113,9 +138,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                         style={styles.listContainer}
                         showsVerticalScrollIndicator={false}
                         renderItem={renderItem}
-                        keyExtractor={(item) => item?.id?.toString()}
+                        keyExtractor={(item, index) => index.toString()}
                         numColumns={2}
-                        ListEmptyComponent={() => renderEmptyComponent()}
+                        ListEmptyComponent={renderEmptyComponent}
                         refreshControl={
                             <RefreshControl
                                 refreshing={refreshing}
@@ -123,12 +148,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                                 colors={[Colors.primary]}
                             />
                         }
+                        onEndReached={loadMoreMovies}
+                        onEndReachedThreshold={0.5}
+                        ListFooterComponent={loadingMore ? (
+                            <ActivityIndicator size="small" color={Colors.primary} style={{ marginVertical: 10 }} />
+                        ) : null}
                     />
                 )}
-                <Pagination
-                    onPreviousPageChange={() => setPage((prevPage) => prevPage - 1)}
-                    onNextPageChange={() => setPage((prevPage) => prevPage + 1)}
-                />
             </View>
         </SafeAreaView>
     );

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     input: {
-        borderColor: Colors.primary,
+        borderColor: Colors.borderColor,
         borderWidth: 1,
         marginBottom: moderateScale(15),
         padding: moderateScale(10),
@@ -31,13 +31,16 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         height: verticalScale(40),
-        borderColor: Colors.primary,
-        borderWidth: 1,
         paddingHorizontal: moderateScale(8),
         backgroundColor: Colors.white,
         elevation: 4,
         marginHorizontal: moderateScale(2),
         color: Colors.black,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        borderColor: "#E5E7EB",
     },
     dropdownContainer: {
         position: 'absolute',
@@ -46,11 +49,14 @@ const styles = StyleSheet.create({
         width: '35%',
     },
     dropdownContainerStyle: {
-        borderColor: Colors.primary,
-        borderWidth: 1,
         backgroundColor: Colors.white,
         elevation: 4,
         marginHorizontal: moderateScale(1),
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        borderColor: "#E5E7EB",
     },
     dropdownText: {
         fontSize: 16,
@@ -58,7 +64,7 @@ const styles = StyleSheet.create({
     },
     dropdownItemContainer: {
         borderBottomColor: Colors.primary,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0,
     },
     dropdownIconStyle: {
         tintColor: Colors.primary,
@@ -91,6 +97,17 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: moderateScale(50),
         marginBottom: moderateScale(20),
+    },
+    forgotPassword: {
+        alignSelf: "flex-end",
+        color: Colors.primary,
+        marginBottom: moderateScale(20),
+    },
+    createAccount: { 
+        alignSelf: "center",
+        marginTop: moderateScale(20), 
+        color: Colors.primary,
+        fontSize: 16,
     },
 });
 

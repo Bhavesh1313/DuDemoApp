@@ -1,6 +1,6 @@
 import { I18nManager, StyleSheet } from 'react-native';
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '../../utils/colors';
-import { moderateScale, verticalScale, scale } from 'react-native-size-matters';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -15,19 +15,23 @@ const styles = StyleSheet.create({
         margin: moderateScale(10),
         alignItems: 'center',
         borderWidth: 2,
-        borderColor: Colors.primary,
+        borderColor: "#E5E7EB",
         elevation: 4,
         backgroundColor: Colors.white,
         borderRadius: 10,
         paddingBottom: moderateScale(5),
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
     },
     poster: {
         width: '100%',
-        height: verticalScale(160),
+        height: verticalScale(110),
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
         borderBottomWidth: 2,
-        borderBottomColor: Colors.primary,
+        borderBottomColor: Colors.white,
     },
     title: {
         marginTop: moderateScale(5),
@@ -35,7 +39,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         flex: 1,
         textAlignVertical: 'center',
-        color: Colors.primary,
+        color: Colors.black,
         fontWeight: 'bold',
         padding: moderateScale(5),
     },
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
         minWidth: scale(45),
     },
     listContainer: {
-        marginBottom: moderateScale(50),
+        marginBottom: moderateScale(10),
     },
     logout: {
         width: scale(23),
