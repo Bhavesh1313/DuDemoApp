@@ -44,7 +44,6 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     const [loadingMore, setLoadingMore] = useState(false);
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    //const { selectedLanguage } = useSelector((state: RootState) => state.language);
     const [selectedLanguage,setSelectedLanguage] =useState<string>('');
 
 

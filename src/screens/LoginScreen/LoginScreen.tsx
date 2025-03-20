@@ -35,7 +35,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginBtnDisabled, setLoginBtnDisabled] = useState(true);
-    //const { selectedLanguage } = useSelector((state: RootState) => state.language);
     const [selectedLanguage,setSelectedLanguage] =useState<string>('');
     const [selectedValue, setSelectedValue] = useState<string>('');
     const dispatch = useDispatch();
@@ -58,8 +57,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
 
     const onLoginBtnClick = useCallback(() => {
         dispatch(setAuthCredentials({ email, password }));
-        //navigation.replace(HOME);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [email, password]);
 
     const handleLanguageChange = useCallback(async (lang: string) => {
@@ -76,7 +73,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         I18nManager.allowRTL(isRTL);
 
         Restart.Restart();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [i18n, navigation]);
 
     return (
