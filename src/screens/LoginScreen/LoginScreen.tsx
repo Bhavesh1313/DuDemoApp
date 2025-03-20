@@ -36,15 +36,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [loginBtnDisabled, setLoginBtnDisabled] = useState(true);
     const [selectedLanguage,setSelectedLanguage] =useState<string>('');
-    const [selectedValue, setSelectedValue] = useState<string>('');
     const dispatch = useDispatch();
 
 
     useEffect(() => {
         const fetchLanguage = async () => {
             let language: string | null = await SecureStorage.getItem(LANGUAGE_STORAGE_KEY);
-            setSelectedValue(language ?? 'en'); // Default to 'en' if null
-            setSelectedLanguage(language ?? 'en'); // Default to 'en' if null
+            setSelectedLanguage(language ?? 'en');
         };
     
         fetchLanguage();
@@ -52,7 +50,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     
 
     useEffect(() => {
-        setLoginBtnDisabled(!validateEmail(email) || !validatePassword(password) || !email || !password);
+        setLoginBtnDisabled(!validateEmail(email) || !validatePassword(password));
     }, [email, password]);
 
     const onLoginBtnClick = useCallback(() => {
@@ -63,7 +61,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         if (lang === selectedLanguage) {
             return;
         }
-        setSelectedValue(lang);
+        setSelectedLanguage(lang);
         i18n.changeLanguage(lang);
         dispatch(setLanguage(lang));
         await SecureStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
@@ -94,7 +92,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                         data={LANGUAGES}
                         labelField="label"
                         valueField="value"
-                        value={selectedValue}
+                        value={selectedLanguage}
                         onChange={item => handleLanguageChange(item?.value)}
                     />
                 </View>
@@ -109,7 +107,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                 />
-                {!validateEmail(email) ? <Text style={styles.errorText}>{t('login.emailInvalid')}</Text> : null}
+                {email.length > 0 &&  !validateEmail(email) ? <Text style={styles.errorText}>{t('login.emailInvalid')}</Text> : null}
 
                 <TextInput
                     style={styles.input}
@@ -122,11 +120,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                     secureTextEntry
                     maxLength={15}
                 />
-                {!validatePassword(password) ? <Text style={styles.errorText}>{t('login.passwordInvalid')}</Text> : null}
-
-                <TouchableOpacity>
-                    <Text style={styles.forgotPassword}>{t('login.forgotPassword')}</Text>
-                </TouchableOpacity>
+                {password.length > 0 && !validatePassword(password) ? <Text style={styles.errorText}>{t('login.passwordInvalid')}</Text> : null}
 
                 <TouchableOpacity
                     disabled={loginBtnDisabled}
@@ -134,10 +128,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                     onPress={onLoginBtnClick}
                 >
                     <Text style={styles.submitText}>{t('login.login').toUpperCase()}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity>
-                    <Text style={styles.createAccount}>{t('login.noAccount')}</Text>
                 </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>

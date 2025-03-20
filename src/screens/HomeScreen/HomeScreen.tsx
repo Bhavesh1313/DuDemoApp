@@ -49,12 +49,10 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
 
     useEffect(() => {
         const fetchLanguageAndMovies = async () => {
-            let language: string | null = await SecureStorage.getItem(LANGUAGE_STORAGE_KEY);
-            const selectedLang = language ?? 'en';
-            setSelectedLanguage(selectedLang);
-            fetchMovies(1, false);
+            const language = await SecureStorage.getItem(LANGUAGE_STORAGE_KEY) || 'en';
+            setSelectedLanguage(language);
+            fetchMovies(1);
         };
-    
         fetchLanguageAndMovies();
     }, []);
 
