@@ -5,5 +5,7 @@ export const Colors = {
     disable: '#A6C8FF',
     red: '#FF0000',
     black: '#000000',
-    borderColor:'#ddd'
+    borderColor:'#ddd',
+    shadowColor: "#000",
+    dropdownBoaderColor: '#E5E7EB',
 };

@@ -150,7 +150,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
                         onEndReached={loadMoreMovies}
                         onEndReachedThreshold={0.5}
                         ListFooterComponent={loadingMore ? (
-                            <ActivityIndicator size="small" color={Colors.primary} style={{ marginVertical: 10 }} />
+                            <ActivityIndicator size="small" color={Colors.primary} style={styles.listFooterComponent} />
                         ) : null}
                     />
                 )}

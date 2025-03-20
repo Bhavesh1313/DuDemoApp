@@ -116,6 +116,9 @@ const styles = StyleSheet.create({
         height: verticalScale(23),
         transform: [{ rotate: I18nManager.isRTL ? '0deg' : '180deg' }],
     },
+    listFooterComponent: {
+        marginVertical: moderateScale(10),
+    }
 });
 
 export default styles;

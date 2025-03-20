@@ -30,7 +30,6 @@ i18n
     });
 
 const fetchStoredLanguage = async () => {
-    console.log("here")
     try {
         const storedLanguage = await SecureStorage.getItem(LANGUAGE_STORAGE_KEY);
         const isRTL = storedLanguage === LANGUAGE_CODES.ARABIC;

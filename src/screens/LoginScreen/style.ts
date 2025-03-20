@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
         elevation: 4,
         marginHorizontal: moderateScale(2),
         color: Colors.black,
-        shadowColor: "#000",
+        shadowColor: Colors.shadowColor,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
         shadowRadius: 6,
-        borderColor: "#E5E7EB",
+        borderColor: Colors.dropdownBoaderColor,
     },
     dropdownContainer: {
         position: 'absolute',
@@ -52,11 +52,11 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.white,
         elevation: 4,
         marginHorizontal: moderateScale(1),
-        shadowColor: "#000",
+        shadowColor: Colors.shadowColor,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
         shadowRadius: 6,
-        borderColor: "#E5E7EB",
+        borderColor: Colors.dropdownBoaderColor
     },
     dropdownText: {
         fontSize: 16,
