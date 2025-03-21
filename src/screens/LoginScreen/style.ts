@@ -1,4 +1,4 @@
-import { I18nManager, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
 import { Colors } from '../../utils/colors';
 const styles = StyleSheet.create({
@@ -11,18 +11,6 @@ const styles = StyleSheet.create({
     subContainer: {
         flex: 1,
         justifyContent: 'center',
-    },
-    input: {
-        borderColor: Colors.borderColor,
-        borderWidth: 1,
-        marginBottom: moderateScale(15),
-        padding: moderateScale(10),
-        backgroundColor: Colors.white,
-        elevation: 4,
-        textAlign: I18nManager.isRTL ? 'right' : 'left',
-        writingDirection: I18nManager.isRTL ? 'rtl' : 'ltr',
-        marginHorizontal: moderateScale(2),
-        color: Colors.black,
     },
     errorText: {
         color: Colors.red,

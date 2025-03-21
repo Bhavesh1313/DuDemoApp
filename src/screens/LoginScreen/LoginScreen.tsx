@@ -6,15 +6,15 @@ import {
     ScrollView,
     StatusBar,
     Text,
-    TextInput,
     TouchableOpacity,
-    View,
+    View
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import FastImage from 'react-native-fast-image';
 import Restart from 'react-native-restart';
 import { useDispatch } from 'react-redux';
 import { images } from '../../assets/images';
+import { TextInputView } from '../../common-components';
 import { setLanguage } from '../../redux/reducers/languageSlice';
 import { setAuthCredentials } from '../../redux/reducers/loginSlice';
 import { Colors } from '../../utils/colors';
@@ -96,30 +96,24 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                         onChange={item => handleLanguageChange(item?.value)}
                     />
                 </View>
-                <TextInput
-                    style={styles.input}
-                    placeholderTextColor={Colors.black}
+
+                <TextInputView
                     placeholder={t('login.email')}
                     value={email}
-                    onChangeText={(val) => {
-                        setEmail(val);
-                    }}
+                    onChangeText={setEmail}
                     keyboardType="email-address"
-                    autoCapitalize="none"
                 />
+
                 {email.length > 0 &&  !validateEmail(email) ? <Text style={styles.errorText}>{t('login.emailInvalid')}</Text> : null}
 
-                <TextInput
-                    style={styles.input}
+                <TextInputView
                     placeholder={t('login.password')}
-                    placeholderTextColor={Colors.black}
                     value={password}
-                    onChangeText={(val) => {
-                        setPassword(val);
-                    }}
-                    secureTextEntry
+                    onChangeText={setPassword}
                     maxLength={15}
+                    secureTextEntry
                 />
+
                 {password.length > 0 && !validatePassword(password) ? <Text style={styles.errorText}>{t('login.passwordInvalid')}</Text> : null}
 
                 <TouchableOpacity
